@@ -1,6 +1,6 @@
 # TinyGL
 
-![a 3D render of multiple gears floating in empty space, one red, one blue, and one green.](.github/tgl_gears.png)
+![a 3D render of multiple gears scalar_ting in empty space, one red, one blue, and one green.](.github/tgl_gears.png)
 
 An extension of [Fabrice Bellard's TinyGL](https://bellard.org/TinyGL/) project.
 

@@ -4,7 +4,7 @@
 
 {
   ZBufferPoint *t,*pr1,*pr2,*l1,*l2;
-  float fdx1, fdx2, fdy1, fdy2, fz, d1, d2;
+  scalar_t fdx1, fdx2, fdy1, fdy2, fz, d1, d2;
   unsigned short *pz1;
   PIXEL *pp1;
   int part,update_left,update_right;
@@ -29,8 +29,8 @@
   int t1,dtdx,dtdy,dtdl_min,dtdl_max;
 #endif
 #ifdef INTERP_STZ
-  float sz1,dszdx,dszdy,dszdl_min,dszdl_max;
-  float tz1,dtzdx,dtzdy,dtzdl_min,dtzdl_max;
+  scalar_t sz1,dszdx,dszdy,dszdl_min,dszdl_max;
+  scalar_t tz1,dtzdx,dtzdy,dtzdl_min,dtzdl_max;
 #endif
 
   /* we sort the vertex with increasing y */
@@ -107,16 +107,16 @@
 
 #ifdef INTERP_STZ
   {
-    float zz;
-    zz=(float) p0->z;
-    p0->sz= (float) p0->s * zz;
-    p0->tz= (float) p0->t * zz;
-    zz=(float) p1->z;
-    p1->sz= (float) p1->s * zz;
-    p1->tz= (float) p1->t * zz;
-    zz=(float) p2->z;
-    p2->sz= (float) p2->s * zz;
-    p2->tz= (float) p2->t * zz;
+    scalar_t zz;
+    zz=(scalar_t) p0->z;
+    p0->sz= (scalar_t) p0->s * zz;
+    p0->tz= (scalar_t) p0->t * zz;
+    zz=(scalar_t) p1->z;
+    p1->sz= (scalar_t) p1->s * zz;
+    p1->tz= (scalar_t) p1->t * zz;
+    zz=(scalar_t) p2->z;
+    p2->sz= (scalar_t) p2->s * zz;
+    p2->tz= (scalar_t) p2->t * zz;
 
     d1 = p1->sz - p0->sz;
     d2 = p2->sz - p0->sz;
@@ -256,7 +256,7 @@
           register unsigned int s,t;
 #endif
 #ifdef INTERP_STZ
-          float sz,tz;
+          scalar_t sz,tz;
 #endif
 
           n=(x2 >> 16) - x1;

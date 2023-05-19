@@ -9,12 +9,14 @@ option(TINYGL_FIXED_POINT "Use Fixed-Point Math" OFF)
 option(TINYGL_BITCH_MODE "Enable pedantic and all warnings" OFF)
 
 add_subdirectory(extras)
+
 # compile options
 if(TINYGL_BITCH_MODE)
 	add_compile_options(-pedantic -Wall -Wextra)
 endif()
 
 if(TINYGL_FIXED_POINT)
+	message(STATUS "TinyGL Fixed Point Enabled")
 	add_compile_definitions(-DTGL_FIXED=1)
 endif()
 
@@ -59,7 +61,7 @@ set(TINYGL_SOURCES
 # library
 add_library(TinyGL STATIC ${TINYGL_SOURCES})
 target_include_directories(TinyGL PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(TinyGL)
+target_link_libraries(TinyGL fixmath)
 
 # examples
 if(TINYGL_BUILD_EXAMPLES AND NOT DJGPP)

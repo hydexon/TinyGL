@@ -6,7 +6,9 @@
 #include <math.h>
 #include <assert.h>
 #include <string.h>
-#include <GL/gl.h>
+
+#include "TinyGL/gl.h"
+
 #include "zbuffer.h"
 #include "zmath.h"
 #include "zfeatures.h"
@@ -52,7 +54,7 @@ enum {
 typedef struct GLSpecBuf {
   int shininess_i;
   int last_used;
-  float buf[SPECULAR_BUFFER_SIZE+1];
+  scalar_t buf[SPECULAR_BUFFER_SIZE+1];
   struct GLSpecBuf *next;
 } GLSpecBuf;
 
@@ -62,11 +64,11 @@ typedef struct GLLight {
   V4 specular;
   V4 position;	
   V3 spot_direction;
-  float spot_exponent;
-  float spot_cutoff;
-  float attenuation[3];
+  scalar_t spot_exponent;
+  scalar_t spot_cutoff;
+  scalar_t attenuation[3];
   /* precomputed values */
-  float cos_spot_cutoff;
+  scalar_t cos_spot_cutoff;
   V3 norm_spot_direction;
   V3 norm_position;
   /* we use a linked list to know which are the enabled lights */
@@ -79,7 +81,7 @@ typedef struct GLMaterial {
   V4 ambient;
   V4 diffuse;
   V4 specular;
-  float shininess;
+  scalar_t shininess;
 
   /* computed values */
   int shininess_i;
@@ -96,7 +98,7 @@ typedef struct GLViewport {
 
 typedef union {
   int op;
-  float f;
+  scalar_t f;
   int i;
   unsigned int ui;
   void *p;
@@ -226,7 +228,7 @@ typedef struct GLContext {
   int name_stack_size;
 
   /* clear */
-  float clear_depth;
+  scalar_t clear_depth;
   V4 clear_color;
 
   /* current vertex state */
@@ -244,22 +246,22 @@ typedef struct GLContext {
   GLVertex *vertex;
 
   /* opengl 1.1 arrays  */
-  float *vertex_array;
+  scalar_t *vertex_array;
   int vertex_array_size;
   int vertex_array_stride;
-  float *normal_array;
+  scalar_t *normal_array;
   int normal_array_stride;
-  float *color_array;
+  scalar_t *color_array;
   int color_array_size;
   int color_array_stride;
-  float *texcoord_array;
+  scalar_t *texcoord_array;
   int texcoord_array_size;
   int texcoord_array_stride;
   int client_states;
   
   /* opengl 1.1 polygon offset */
-  float offset_factor;
-  float offset_units;
+  scalar_t offset_factor;
+  scalar_t offset_units;
   int offset_states;
   
   /* specular buffer. could probably be shared between contexts, 
@@ -297,7 +299,7 @@ void gl_draw_triangle_select(GLContext *c,
                              GLVertex *p0,GLVertex *p1,GLVertex *p2);
 
 /* matrix.c */
-void gl_print_matrix(const float *m);
+void gl_print_matrix(const scalar_t *m);
 /*
 void glopLoadIdentity(GLContext *c,GLParam *p);
 void glopTranslate(GLContext *c,GLParam *p);*/
@@ -328,7 +330,7 @@ void gl_fatal_error(char *format, ...);
 
 /* specular buffer "api" */
 GLSpecBuf *specbuf_get_buffer(GLContext *c, const int shininess_i, 
-                              const float shininess);
+                              const scalar_t shininess);
 
 #ifdef __BEOS__
 void dprintf(const char *, ...);
@@ -357,9 +359,9 @@ void dprintf(const char *, ...);
 
 #define CLIP_EPSILON (1E-5)
 
-static inline int gl_clipcode(float x,float y,float z,float w1)
+static inline int gl_clipcode(scalar_t x,scalar_t y,scalar_t z,scalar_t w1)
 {
-  float w;
+  scalar_t w;
 
   w=w1 * (1.0 + CLIP_EPSILON);
   return (x<-w) |

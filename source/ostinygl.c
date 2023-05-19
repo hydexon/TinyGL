@@ -1,7 +1,10 @@
-#include <GL/ostinygl.h>
+#include "TinyGL/ostinygl.h"
+
 #include "zbuffer.h"
 #include "zgl.h"
-#include <GL/gl.h>
+
+#include "TinyGL/gl.h"
+
 #include <stdlib.h>
 #include <assert.h>
 

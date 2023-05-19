@@ -91,7 +91,7 @@ typedef struct {
   int s,t;       /* coordinates for the mapping */
   int r,g,b;     /* color indexes */
   
-  float sz,tz;   /* temporary coordinates for mapping */
+  scalar_t sz,tz;   /* temporary coordinates for mapping */
 } ZBufferPoint;
 
 /* zbuffer.c */

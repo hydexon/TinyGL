@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <math.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
+
+#include "TinyGL/gl.h"
+#include "TinyGL/glu.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -71,9 +72,11 @@ GLUquadricObj *gluNewQuadric(void)
   return NULL;
 }
 
+#if 0
 void gluQuadricDrawStyle(GLUquadricObj *obj, int style)
 {
 }
+#endif
 
 void gluCylinder( GLUquadricObj *qobj,
 				  GLdouble baseRadius, GLdouble topRadius, GLdouble height,
@@ -170,7 +173,7 @@ void gluDisk( GLUquadricObj *qobj,
 }
 
 /*
- * Sph�re (adapted from Mesa)
+ * Sphere (adapted from Mesa)
  */
 
 void gluSphere(GLUquadricObj *qobj,

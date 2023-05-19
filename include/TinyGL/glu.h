@@ -18,7 +18,7 @@ GLUquadricObj *gluNewQuadric(void);
 void gluQuadricDrawStyle(GLUquadricObj *obj, int style);
 
 void gluSphere(GLUquadricObj *qobj,
-               float radius,int slices,int stacks);
+               scalar_t radius,int slices,int stacks);
 void gluCylinder( GLUquadricObj *qobj,
                   GLdouble baseRadius, GLdouble topRadius, GLdouble height,
                   GLint slices, GLint stacks );
@@ -26,4 +26,4 @@ void gluDisk( GLUquadricObj *qobj,
               GLdouble innerRadius, GLdouble outerRadius,
               GLint slices, GLint loops );
 
-void drawTorus(float rc, int numc, float rt, int numt);
+void drawTorus(scalar_t rc, int numc, scalar_t rt, int numt);
