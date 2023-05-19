@@ -55,14 +55,14 @@ void gl_resizeImage(unsigned char *dest,int xsize_dest,int ysize_dest,
                     unsigned char *src,int xsize_src,int ysize_src)
 {
   unsigned char *pix,*pix_src;
-  float x1,y1,x1inc,y1inc;
+  scalar_t x1,y1,x1inc,y1inc;
   int xi,yi,j,xf,yf,x,y;
 
   pix=dest;
   pix_src=src;
   
-  x1inc=(float) (xsize_src - 1) / (float) (xsize_dest - 1);
-  y1inc=(float) (ysize_src - 1) / (float) (ysize_dest - 1);
+  x1inc=(scalar_t) (xsize_src - 1) / (scalar_t) (xsize_dest - 1);
+  y1inc=(scalar_t) (ysize_src - 1) / (scalar_t) (ysize_dest - 1);
 
   y1=0;
   for(y=0;y<ysize_dest;y++) {
@@ -112,6 +112,7 @@ void gl_resizeImageNoInterpolate(unsigned char *dest,int xsize_dest,int ysize_de
   pix=dest;
   pix_src=src;
   
+  //FIXED POINT?
   x1inc=(int)((float) ((xsize_src)<<FRAC_BITS) / (float) (xsize_dest));
   y1inc=(int)((float) ((ysize_src)<<FRAC_BITS) / (float) (ysize_dest));
 

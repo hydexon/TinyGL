@@ -657,9 +657,7 @@ enum {
 	GL_ALL_ATTRIB_BITS	= 0x000fffff
 };
 
-#ifdef TGL_FIXED
-#include "fix16.h"
-#endif
+#include "glfixed.h"
 
 /* some types */
 

@@ -55,7 +55,8 @@ void glopColor(GLContext * c, GLParam * p)
 void gl_eval_viewport(GLContext * c)
 {
     GLViewport *v;
-    float zsize = (1 << (ZB_Z_BITS + ZB_POINT_Z_FRAC_BITS));
+    //fixed point?
+	float zsize = (1 << (ZB_Z_BITS + ZB_POINT_Z_FRAC_BITS));
 
     v = &c->viewport;
 
@@ -88,7 +89,7 @@ void glopBegin(GLContext * c, GLParam * p)
 	    gl_M4_Inv(&tmp, c->matrix_stack_ptr[0]);
 	    gl_M4_Transpose(&c->matrix_model_view_inv, &tmp);
 	} else {
-	    float *m = &c->matrix_model_projection.m[0][0];
+	    scalar_t *m = &c->matrix_model_projection.m[0][0];
 	    /* precompute projection matrix */
 	    gl_M4_Mul(&c->matrix_model_projection,
 		      c->matrix_stack_ptr[1],
@@ -144,7 +145,7 @@ void glopBegin(GLContext * c, GLParam * p)
 /* TODO : handle all cases */
 static inline void gl_vertex_transform(GLContext * c, GLVertex * v)
 {
-    float *m;
+    scalar_t *m;
     V4 *n;
 
     if (c->lighting_enabled) {

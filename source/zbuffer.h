@@ -5,6 +5,7 @@
  * Z buffer
  */
 
+//@TODO: peek around and consider if we keep floats or not.
 #include "zfeatures.h"
 
 #define ZB_Z_BITS 16
@@ -91,7 +92,7 @@ typedef struct {
   int s,t;       /* coordinates for the mapping */
   int r,g,b;     /* color indexes */
   
-  scalar_t sz,tz;   /* temporary coordinates for mapping */
+  float sz,tz;   /* temporary coordinates for mapping */ //TODO:? Should using fixed point?
 } ZBufferPoint;
 
 /* zbuffer.c */

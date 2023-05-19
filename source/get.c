@@ -32,7 +32,7 @@ void glGetIntegerv(int pname,int *params)
   }
 }
 
-void glGetFloatv(int pname, float *v)
+void glGetFloatv(int pname, scalar_t *v)
 {
   int i;
   int mnr = 0; /* just a trick to return the correct matrix */
@@ -44,7 +44,7 @@ void glGetFloatv(int pname, float *v)
     mnr++; 
   case GL_MODELVIEW_MATRIX:
     {
-      float *p = &c->matrix_stack_ptr[mnr]->m[0][0];;
+      scalar_t *p = &c->matrix_stack_ptr[mnr]->m[0][0];;
       for (i = 0; i < 4; i++) {
         *v++ = p[0];
         *v++ = p[4];

@@ -1,6 +1,8 @@
 #ifndef __ZMATH__
 #define __ZMATH__
 
+#include "glfixed.h"
+
 /* Matrix & Vertex */
 
 typedef struct {

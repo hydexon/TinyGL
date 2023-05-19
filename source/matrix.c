@@ -1,6 +1,6 @@
 #include "zgl.h"
 
-void gl_print_matrix( const float *m)
+void gl_print_matrix( const scalar_t *m)
 {
    int i;
 
@@ -112,8 +112,8 @@ void glopPopMatrix(GLContext *c,GLParam *p)
 void glopRotate(GLContext *c,GLParam *p)
 {
   M4 m;
-  float u[3];
-  float angle;
+  scalar_t u[3];
+  scalar_t angle;
   int dir_code;
 
   angle = p[1].f * M_PI / 180.0;
@@ -142,10 +142,10 @@ void glopRotate(GLContext *c,GLParam *p)
     break;
   default:
     {
-      float cost, sint;
+      scalar_t cost, sint;
 
       /* normalize vector */
-      float len = u[0]*u[0]+u[1]*u[1]+u[2]*u[2];
+      scalar_t len = u[0]*u[0]+u[1]*u[1]+u[2]*u[2];
       if (len == 0.0f) return;
       len = 1.0f / sqrt(len);
       u[0] *= len;
@@ -181,8 +181,8 @@ void glopRotate(GLContext *c,GLParam *p)
 
 void glopScale(GLContext *c,GLParam *p)
 {
-  float *m;
-  float x=p[1].f,y=p[2].f,z=p[3].f;
+  scalar_t *m;
+  scalar_t x=p[1].f,y=p[2].f,z=p[3].f;
 
   m=&c->matrix_stack_ptr[c->matrix_mode]->m[0][0];
 
@@ -195,8 +195,8 @@ void glopScale(GLContext *c,GLParam *p)
 
 void glopTranslate(GLContext *c,GLParam *p)
 {
-  float *m;
-  float x=p[1].f,y=p[2].f,z=p[3].f;
+  scalar_t *m;
+  scalar_t x=p[1].f,y=p[2].f,z=p[3].f;
 
   m=&c->matrix_stack_ptr[c->matrix_mode]->m[0][0];
 
@@ -211,15 +211,15 @@ void glopTranslate(GLContext *c,GLParam *p)
 
 void glopFrustum(GLContext *c,GLParam *p)
 {
-  float *r;
+  scalar_t *r;
   M4 m;
-  float left=p[1].f;
-  float right=p[2].f;
-  float bottom=p[3].f;
-  float top=p[4].f;
-  float near=p[5].f;
-  float farp=p[6].f;
-  float x,y,A,B,C,D;
+  scalar_t left=p[1].f;
+  scalar_t right=p[2].f;
+  scalar_t bottom=p[3].f;
+  scalar_t top=p[4].f;
+  scalar_t near=p[5].f;
+  scalar_t farp=p[6].f;
+  scalar_t x,y,A,B,C,D;
 
   x = (2.0*near) / (right-left);
   y = (2.0*near) / (top-bottom);

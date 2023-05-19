@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "zbuffer.h"
+#include "glfixed.h"
 
 #define ZCMP(z,zpix) ((z) >= (zpix))
 
@@ -237,7 +238,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
                             ZBufferPoint *p0,ZBufferPoint *p1,ZBufferPoint *p2)
 {
     PIXEL *texture;
-    float fdzdx,fndzdx,ndszdx,ndtzdx;
+    scalar_t fdzdx,fndzdx,ndszdx,ndtzdx;
 
 #define INTERP_Z
 #define INTERP_STZ
@@ -247,7 +248,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
 #define DRAW_INIT()				\
 {						\
   texture=zb->current_texture;\
-  fdzdx=(float)dzdx;\
+  fdzdx=(scalar_t)dzdx;\
   fndzdx=NB_INTERP * fdzdx;\
   ndszdx=NB_INTERP * dszdx;\
   ndtzdx=NB_INTERP * dtzdx;\
@@ -295,9 +296,9 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
   register PIXEL *pp;		\
   register unsigned int s,t,z,zz;	\
   register int n,dsdx,dtdx;		\
-  float sz,tz,fz,zinv; \
+  scalar_t sz,tz,fz,zinv; \
   n=(x2>>16)-x1;                             \
-  fz=(float)z1;\
+  fz=(scalar_t)z1;\
   zinv=1.0 / fz;\
   pp=(PIXEL *)((char *)pp1 + x1 * PSZB); \
   pz=pz1+x1;					\
@@ -306,7 +307,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
   tz=tz1;\
   while (n>=(NB_INTERP-1)) {						   \
     {\
-      float ss,tt;\
+      scalar_t ss,tt;\
       ss=(sz * zinv);\
       tt=(tz * zinv);\
       s=(int) ss;\
@@ -331,7 +332,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
     tz+=ndtzdx;\
   }									   \
     {\
-      float ss,tt;\
+      scalar_t ss,tt;\
       ss=(sz * zinv);\
       tt=(tz * zinv);\
       s=(int) ss;\
@@ -372,11 +373,11 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
 
 #define PUT_PIXEL(_a)				\
 {						\
-   float zinv; \
+   scalar_t zinv; \
    int s,t; \
    zz=z >> ZB_POINT_Z_FRAC_BITS;		\
      if (ZCMP(zz,pz[_a])) {				\
-       zinv= 1.0 / (float) z; \
+       zinv= 1.0 / (scalar_t) z; \
        s= (int) (sz * zinv); \
        t= (int) (tz * zinv); \
        pp[_a]=texture[((t & 0x3FC00000) | s) >> 14];	\

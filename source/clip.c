@@ -12,7 +12,7 @@
 
 void gl_transform_to_viewport(GLContext *c,GLVertex *v)
 {
-  float winv;
+  scalar_t winv;
 
   /* coordinates */
   winv=1.0/v->pc.W;
@@ -75,7 +75,7 @@ void gl_draw_point(GLContext *c,GLVertex *p0)
 
 /* line */
 
-static inline void interpolate(GLVertex *q,GLVertex *p0,GLVertex *p1,float t)
+static inline void interpolate(GLVertex *q,GLVertex *p0,GLVertex *p1,scalar_t t)
 {
   q->pc.X=p0->pc.X+(p1->pc.X-p0->pc.X)*t;
   q->pc.Y=p0->pc.Y+(p1->pc.Y-p0->pc.Y)*t;
@@ -93,9 +93,9 @@ static inline void interpolate(GLVertex *q,GLVertex *p0,GLVertex *p1,float t)
 
 /* Line Clipping algorithm from 'Computer Graphics', Principles and
    Practice */
-static inline int ClipLine1(float denom,float num,float *tmin,float *tmax)
+static inline int ClipLine1(scalar_t denom,scalar_t num,scalar_t *tmin,scalar_t *tmax)
 {
-  float t;
+  scalar_t t;
 	 
   if (denom>0) {
     t=num/denom;
@@ -111,8 +111,8 @@ static inline int ClipLine1(float denom,float num,float *tmin,float *tmax)
 
 void gl_draw_line(GLContext *c,GLVertex *p1,GLVertex *p2)
 {
-  float dx,dy,dz,dw,x1,y1,z1,w1;
-  float tmin,tmax;
+  scalar_t dx,dy,dz,dw,x1,y1,z1,w1;
+  scalar_t tmin,tmax;
   GLVertex q1,q2;
   int cc1,cc2;
   
@@ -175,9 +175,9 @@ void gl_draw_line(GLContext *c,GLVertex *p1,GLVertex *p2)
  */
 	 
 #define clip_func(name,sign,dir,dir1,dir2) \
-static float name(V4 *c,V4 *a,V4 *b) \
+static scalar_t name(V4 *c,V4 *a,V4 *b) \
 {\
-  float t,dX,dY,dZ,dW,den;\
+  scalar_t t,dX,dY,dZ,dW,den;\
   dX = (b->X - a->X);\
   dY = (b->Y - a->Y);\
   dZ = (b->Z - a->Z);\
@@ -206,14 +206,14 @@ clip_func(clip_zmin,-,Z,X,Y)
 clip_func(clip_zmax,+,Z,X,Y)
 
 
-float (*clip_proc[6])(V4 *,V4 *,V4 *)=  {
+scalar_t (*clip_proc[6])(V4 *,V4 *,V4 *)=  {
     clip_xmin,clip_xmax,
     clip_ymin,clip_ymax,
     clip_zmin,clip_zmax
 };
 
 static inline void updateTmp(GLContext *c,
-			     GLVertex *q,GLVertex *p0,GLVertex *p1,float t)
+			     GLVertex *q,GLVertex *p0,GLVertex *p1,scalar_t t)
 {
   if (c->current_shade_model == GL_SMOOTH) {
     q->color.v[0]=p0->color.v[0] + (p1->color.v[0]-p0->color.v[0])*t;
@@ -242,7 +242,7 @@ void gl_draw_triangle(GLContext *c,
                       GLVertex *p0,GLVertex *p1,GLVertex *p2)
 {
   int co,c_and,cc[3],front;
-  float norm;
+  scalar_t norm;
   
   cc[0]=p0->clip_code;
   cc[1]=p1->clip_code;
@@ -253,8 +253,8 @@ void gl_draw_triangle(GLContext *c,
   /* we handle the non clipped case here to go faster */
   if (co==0) {
     
-      norm=(float)(p1->zp.x-p0->zp.x)*(float)(p2->zp.y-p0->zp.y)-
-        (float)(p2->zp.x-p0->zp.x)*(float)(p1->zp.y-p0->zp.y);
+      norm=(scalar_t)(p1->zp.x-p0->zp.x)*(scalar_t)(p2->zp.y-p0->zp.y)-
+        (scalar_t)(p2->zp.x-p0->zp.x)*(scalar_t)(p1->zp.y-p0->zp.y);
       
       if (norm == 0) return;
 
@@ -294,7 +294,7 @@ static void gl_draw_triangle_clip(GLContext *c,
 {
   int co,c_and,co1,cc[3],edge_flag_tmp,clip_mask;
   GLVertex tmp1,tmp2,*q[3];
-  float tt;
+  scalar_t tt;
   
   cc[0]=p0->clip_code;
   cc[1]=p1->clip_code;

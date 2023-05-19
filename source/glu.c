@@ -11,9 +11,9 @@
 void drawTorus(float rc, int numc, float rt, int numt)
 {
 	int i, j, k;
-	double s, t;
-	double x, y, z;
-	double pi, twopi;
+	dscalar_t s, t;
+	dscalar_t x, y, z;
+	dscalar_t pi, twopi;
 
 	pi = 3.14159265358979323846;
 	twopi = 2 * pi;

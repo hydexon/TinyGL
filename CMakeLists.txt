@@ -60,7 +60,7 @@ set(TINYGL_SOURCES
 
 # library
 add_library(TinyGL STATIC ${TINYGL_SOURCES})
-target_include_directories(TinyGL PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(TinyGL PUBLIC ${PROJECT_SOURCE_DIR}/include source/)
 target_link_libraries(TinyGL fixmath)
 
 # examples

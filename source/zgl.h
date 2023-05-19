@@ -100,7 +100,7 @@ typedef union {
   int op;
   scalar_t f;
   int i;
-  unsigned int ui;
+  unsigned int ui; // we should switch to byte for index based color support.
   void *p;
 } GLParam;
 

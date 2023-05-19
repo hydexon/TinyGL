@@ -109,7 +109,7 @@ void glopLight(GLContext *c,GLParam *p)
     break;
   case GL_SPOT_CUTOFF:
     {
-      float a=v.v[0];
+      scalar_t a=v.v[0];
       assert(a == 180 || (a>=0 && a<=90));
       l->spot_cutoff=a;
       if (a != 180) l->cos_spot_cutoff=cos(a * M_PI / 180.0);
@@ -154,7 +154,7 @@ void glopLightModel(GLContext *c,GLParam *p)
 }
 
 
-static inline float clampf(float a,float min,float max)
+static inline scalar_t clampf(scalar_t a,scalar_t min,scalar_t max)
 {
   if (a<min) return min;
   else if (a>max) return max;
@@ -180,11 +180,11 @@ void gl_enable_disable_light(GLContext *c,int light,int v)
 /* non optimized lightening model */
 void gl_shade_vertex(GLContext *c,GLVertex *v)
 {
-  float R,G,B,A;
+  scalar_t R,G,B,A;
   GLMaterial *m;
   GLLight *l;
   V3 n,s,d;
-  float dist,tmp,att,dot,dot_spot,dot_spec;
+  scalar_t dist,tmp,att,dot,dot_spot,dot_spec;
   int twoside = c->light_model_two_side;
 
   m=&c->materials[0];
@@ -199,7 +199,7 @@ void gl_shade_vertex(GLContext *c,GLVertex *v)
   A=clampf(m->diffuse.v[3],0,1);
 
   for(l=c->first_light;l!=NULL;l=l->next) {
-    float lR,lB,lG;
+    scalar_t lR,lB,lG;
     
     /* ambient */
     lR=l->ambient.v[0] * m->ambient.v[0];
