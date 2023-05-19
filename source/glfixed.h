@@ -4,9 +4,10 @@
 
 #include "fixed_point_math.h"
 
-/* fixed point math */
-#ifdef TGL_FIXED
-
+/*
+Sorry fella.
+*/
+#if 0
 /* base type */
 typedef fix32_t real_t;
 
@@ -35,6 +36,9 @@ typedef fix32_t real_t;
 #define REAL_TO_FIX32(a) (a)
 #define REAL_TO_FLOAT(a) FIX32_TO_FLOAT(a)
 #define REAL_TO_DOUBLE(a) FIX32_TO_DOUBLE(a)
+#endif
+/* fixed point math */
+#ifdef TGL_FIXED
 
 #else
 

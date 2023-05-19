@@ -17,3 +17,7 @@ examples/gears
 examples/mech
 examples/spin
 examples/texobj
+
+#build
+build/
+_build/
